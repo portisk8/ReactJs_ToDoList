@@ -3,7 +3,7 @@ import Card from "../components/Card";
 import { pokemonListGetAsync } from "../services/podedexService";
 
 const filterDefault = {
-  limit: 50,
+  limit: 30,
   offset: 0,
 };
 
@@ -23,22 +23,37 @@ function Home() {
   }, []);
   return (
     <div>
-      Home2
+      <img
+        className="img-title"
+        src="https://www.freepnglogos.com/uploads/gotta-catch-em-all-transparent-pokemon-logo-11.png"
+      />
       <div className="Card-container">
         {pokemonList?.results?.map((p) => (
           <Card pokemonData={p}></Card>
         ))}
       </div>
-      <div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
         {pokemonList?.previousFilter && (
-          <div onClick={() => searchPokemon(pokemonList?.previousFilter)}>
-            <a>{"<"} PREVIOUS</a>
+          <div
+            className="button-footer"
+            onClick={() => searchPokemon(pokemonList?.previousFilter)}
+          >
+            <b>
+              <a>{"<"} PREVIOUS</a>
+            </b>
           </div>
-        )}{" "}
-        -
+        )}
+        {pokemonList?.nextFilter && pokemonList?.previousFilter && (
+          <b style={{ color: "white", marginLeft: 5, marginRight: 5 }}>-</b>
+        )}
         {pokemonList?.nextFilter && (
-          <div onClick={() => searchPokemon(pokemonList?.nextFilter)}>
-            <a>NEXT {">"}</a>
+          <div
+            className="button-footer"
+            onClick={() => searchPokemon(pokemonList?.nextFilter)}
+          >
+            <b>
+              <a>NEXT {">"}</a>
+            </b>
           </div>
         )}
       </div>
