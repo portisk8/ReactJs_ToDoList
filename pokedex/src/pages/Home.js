@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
-import { pokemonListWithDetailsGetAsync } from "../services/podedexService";
+import { pokemonListGetAsync } from "../services/podedexService";
 
 const filterDefault = {
   limit: 50,
@@ -13,7 +13,7 @@ function Home() {
 
   const searchPokemon = async (filter) => {
     setFilter(filter);
-    const response = await pokemonListWithDetailsGetAsync(filter);
+    const response = await pokemonListGetAsync(filter);
     console.log(response);
     setPokemonList(response);
   };
@@ -23,10 +23,10 @@ function Home() {
   }, []);
   return (
     <div>
-      Home
+      Home2
       <div className="Card-container">
         {pokemonList?.results?.map((p) => (
-          <Card pokemon={p}></Card>
+          <Card pokemonData={p}></Card>
         ))}
       </div>
       <div>

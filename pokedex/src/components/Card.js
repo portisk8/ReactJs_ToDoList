@@ -1,10 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { pokemonDetailGetAsync } from "../services/podedexService";
 
-function Card({ pokemon }) {
+function Card({ pokemonData }) {
+  const [pokemon, setPokemon] = useState();
+
+  const getPokemon = async () => {
+    const response = await pokemonDetailGetAsync(pokemonData.url);
+    if (response) setPokemon(response);
+  };
+
+  useEffect(() => {
+    getPokemon();
+  }, [pokemonData]);
+
   return (
     <div>
-      <div>{pokemon.name}</div>
-      <img src={pokemon.data.sprites.front_default} />
+      {pokemon && (
+        <div>
+          <img src={pokemon.sprites.front_default} />
+        </div>
+      )}
+      <div>{pokemonData.name}</div>
     </div>
   );
 }
